@@ -1,14 +1,14 @@
 <div>
   <h2>Редактирование события</h2>
   <% if @event.errors.any?%>
-      <div>
-        <% @event.errors.full_messages.each do |message| %>
-          <p><%= message %></p>
-        <% end %>
-      </div>
+    <div>
+      <% @event.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
   <% end %>
 
   <div>
-    <%= render 'form', question: @question %>
+    <%= render 'form', event: @event %>
   </div>
 </div>

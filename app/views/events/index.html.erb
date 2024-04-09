@@ -1,3 +1,9 @@
+<h2 class="title-lg">События</h2>
+<p>У вас
+  <%= @events.count %>
+  <%= inclination(@events.count, "предстоящее событие", "предстоящих события", "предстоящих событий") %>
+  (сегодня <%= todays_events(@events).count %>)
+</p>
 <div>
   <% @events.each do |event| %>
     <div>
