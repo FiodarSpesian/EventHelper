@@ -11,6 +11,17 @@
   </head>
 
   <body>
+    <div>
+      <p><%= link_to "Me" %></p>
+      <p><%= link_to "Events", events_path %></p>
+    </div>
+    <hr>
+    <% if flash[:notice].present? %>
+      <p><%= flash[:notice] %></p>
+    <% elsif flash[:alert].present? %>
+      <p><%= flash[:alert] %></p>
+    <% end %>
+    <hr>
     <%= yield %>
   </body>
 </html>

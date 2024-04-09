@@ -1,13 +1,8 @@
-<h1>Events#index</h1>
-<hr>
-
 <div>
   <% @events.each do |event| %>
-  <div>
-    <%= render event %>
-  </div>
+    <div>
+      <%= render event %>
+    </div>
   <% end %>
+  <%= link_to 'Добавить событие', new_event_path %>
 </div>
-
-<hr>
-<p>Find me in app/views/events/index.html.erb</p>

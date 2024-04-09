@@ -1,0 +1,19 @@
+<%= form_with model: @event, data: {turbo: false} do |form| %>
+
+  <p><%= form.label :name, 'Название' %></p>
+  <p><%= form.text_field :name %></p>
+
+  <p><%= form.label :body, 'Описание' %></p>
+  <p><%= form.text_area :body, rows: 5 %></p>
+
+  <p><%= form.label :event_date, 'Дата' %></p>
+  <p><%= form.date_field :event_date %></p>
+
+  <p><%= form.label :category_id, 'Категория' %></p>
+  <p><%= form.text_field :category_id %></p>
+
+  <p><%= form.label :user_id, 'Потом не понадобится user_id' %></p>
+  <p><%= form.text_field :user_id %></p>
+
+  <p><%= form.submit 'Сохранить' %></p>
+<% end %>

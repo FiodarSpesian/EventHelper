@@ -1,2 +1,12 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<div>
+  <h2>Новое событие</h2>
+  <% if @event.errors.any?%>
+    <div>
+      <% @event.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= render 'form', event: @event %>
+</div>

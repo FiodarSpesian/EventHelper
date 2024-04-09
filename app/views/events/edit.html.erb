@@ -1,2 +1,14 @@
-<h1>Events#edit</h1>
-<p>Find me in app/views/events/edit.html.erb</p>
+<div>
+  <h2>Редактирование события</h2>
+  <% if @event.errors.any?%>
+      <div>
+        <% @event.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+  <% end %>
+
+  <div>
+    <%= render 'form', question: @question %>
+  </div>
+</div>
