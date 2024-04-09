@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :set_event, only: %i[show edit update destroy]
   def index
     @events = Event.all
   end
@@ -8,7 +9,6 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = set_event
   end
 
   def create
@@ -22,11 +22,9 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = set_event
   end
 
   def update
-    @event = set_event
     if @event.update(event_params)
       redirect_to event_path, notice: 'Событие обновлено'
     else
@@ -37,7 +35,6 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event = set_event
     @event.destroy
     redirect_to events_path
   end
