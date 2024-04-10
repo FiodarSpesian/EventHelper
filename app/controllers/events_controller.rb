@@ -13,10 +13,12 @@ class EventsController < ApplicationController
 
   def create
     @event =  Event.create(event_params)
+
     if @event.save
       redirect_to events_path, notice: 'Событие добавлено!'
     else
       flash.now[:alert] = 'Вы неправильно заполнили поля формы'
+
       render :new
     end
   end
@@ -36,6 +38,7 @@ class EventsController < ApplicationController
 
   def destroy
     @event.destroy
+
     redirect_to events_path
   end
 

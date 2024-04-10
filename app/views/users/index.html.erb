@@ -1,0 +1,10 @@
+<h2>Мой профиль</h2>
+<div>
+  <div>
+    <p><%= @user.name %></p>
+    <p><%= @user.surname %></p>
+  </div>
+  <div>
+    <p><%= link_to "Редактировать", edit_user_path(@user) %></p>
+  </div>
+</div>
