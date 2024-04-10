@@ -13,8 +13,8 @@ class EventsController < ApplicationController
   end
 
   def create
+    params.require(:event)[:user_id] = id_of_user
     @event =  Event.create(event_params)
-
     if @event.save
       redirect_to events_path, notice: 'Событие добавлено!'
     else
@@ -29,7 +29,7 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to event_path, notice: 'Событие обновлено'
+      redirect_to events_path, notice: 'Событие обновлено'
     else
       flash.now[:alert] = 'Поля заполнены неправильно'
 
@@ -55,5 +55,9 @@ class EventsController < ApplicationController
 
   def set_event
     @event = Event.find(params[:id])
+  end
+
+  def id_of_user
+    return user_id = session[:user_id].to_s
   end
 end
