@@ -1,8 +1,7 @@
 <h2>Мой профиль</h2>
 <div>
   <div>
-    <p><%= @user.name %></p>
-    <p><%= @user.surname %></p>
+    <p>Добро пожаловать <%= @user.name %> <%= @user.surname %></p>
     <p><%= link_to "Редактировать", edit_user_path(@user) %></p>
   </div>
   <p>У вас

@@ -1,7 +1,8 @@
 class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   def index
-    @events = Event.all
+    user_id = session[:user_id]
+    @events = Event.where(user_id: user_id)
   end
 
   def new
