@@ -13,4 +13,8 @@ module ApplicationHelper
   def todays_events(events)
     events.where(event_date: Date.current.to_s)
   end
+
+  def user_events(user)
+    return events = Event.where(user_id: user.id)
+  end
 end

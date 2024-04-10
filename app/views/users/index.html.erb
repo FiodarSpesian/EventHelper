@@ -3,8 +3,12 @@
   <div>
     <p><%= @user.name %></p>
     <p><%= @user.surname %></p>
-  </div>
-  <div>
     <p><%= link_to "Редактировать", edit_user_path(@user) %></p>
   </div>
+  <p>У вас
+    <% @events = user_events(@user) %>
+    <%= @events.count %>
+    <%= inclination(@events.count, "предстоящее событие", "предстоящих события", "предстоящих событий") %>
+    (сегодня <%= todays_events(@events).count %>)
+  </p>
 </div>
