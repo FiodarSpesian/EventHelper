@@ -10,8 +10,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      categories = ['отдых', 'работа', 'личное']
       session[:user_id] = @user.id
-
+      categories.each do |category|
+        Category.create(name: category, user_id: @user.id)
+      end
       redirect_to root_path, notice: 'Вы успешно зарегестрировались!'
     else
       flash.now[:alert] = 'Вы неправильно заполнили поля формы регистрации'

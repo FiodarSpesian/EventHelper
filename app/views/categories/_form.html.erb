@@ -1,0 +1,7 @@
+<%= form_with model: category, data: {turbo: false} do |form| %>
+
+  <p><%= form.label :name, 'Название' %></p>
+  <p><%= form.text_field :name %></p>
+
+  <p><%= form.submit 'Сохранить' %></p>
+<% end %>
