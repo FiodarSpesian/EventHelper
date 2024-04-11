@@ -35,8 +35,8 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    if @event.update(event_params)
-      redirect_to events_path, notice: 'Событие обновлено'
+    if @category.update(category_params)
+      redirect_to categories_path, notice: 'Категория обновлено'
     else
       flash.now[:alert] = 'Поля заполнены неправильно'
 

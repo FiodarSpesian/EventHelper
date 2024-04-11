@@ -2,5 +2,6 @@
   <div>
     <p><%= category.name %>
     <%= button_to "Удалить", category_path(category), method: :delete %></p>
+    <%= link_to "Редактировать", edit_category_path(category) %>
   </div>
 </div>
