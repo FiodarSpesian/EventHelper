@@ -4,7 +4,7 @@
     <% if params[:action] == 'show' %>
       <p><%= event.body %></p>
     <% end %>
-    <p><%= event.category_id %></p>
+    <p><%= event_category(event).name %></p>
     <p><%= event.event_date.strftime("%d.%m.%Y") %></p>
   </div>
   <div>

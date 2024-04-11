@@ -17,4 +17,8 @@ module ApplicationHelper
   def user_events(user)
     return @events = Event.where(user_id: user.id)
   end
+
+  def event_category(event)
+    return category = Category.find(event.category_id)
+  end
 end
