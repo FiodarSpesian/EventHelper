@@ -15,6 +15,6 @@ module ApplicationHelper
   end
 
   def user_events(user)
-    return events = Event.where(user_id: user.id)
+    return @events = Event.where(user_id: user.id)
   end
 end
