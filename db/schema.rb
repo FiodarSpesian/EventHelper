@@ -10,22 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_10_195114) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_12_105744) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "categories_users", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "category_id", null: false
+    t.index ["category_id"], name: "index_categories_users_on_category_id"
+    t.index ["user_id"], name: "index_categories_users_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.text "body"
     t.date "event_date"
-    t.integer "category_id"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "category_id", null: false
     t.index ["category_id"], name: "index_events_on_category_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
@@ -39,4 +45,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_10_195114) do
     t.string "password_digest"
   end
 
+  add_foreign_key "events", "categories"
+  add_foreign_key "events", "users"
 end

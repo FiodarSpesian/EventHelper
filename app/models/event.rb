@@ -1,4 +1,5 @@
 class Event < ApplicationRecord
+  belongs_to :user # пренадлежит User
 
   before_save
   validates :name, presence: true
