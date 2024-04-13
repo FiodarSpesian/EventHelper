@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-    @categories = Category.where(user_id: id_of_user)
+    @categories = current_user.categories
   end
 
   def new
@@ -13,35 +13,18 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    params.require(:category)[:user_id] = id_of_user
-    @category =  Category.new(category_params)
+    current_user.categories.find_or_create_by(name: category_params[:name])
 
-    if Category.where(user_id: id_of_user).find_by(name: @category.name)
-      flash.now[:alert] = 'Такая категория уже существует create'
-
-      render :new
-    else
-      if @category.save
-        redirect_to categories_path, notice: 'Категория добавлена!'
-      else
-        flash.now[:alert] = 'Неправильно зоплнены поля формы'
-
-        render :new
-      end
-    end
+    redirect_to categories_path, notice: 'Категория добавлена!'
   end
 
   def edit
   end
 
   def update
-    if @category.update(category_params)
-      redirect_to categories_path, notice: 'Категория обновлено'
-    else
-      flash.now[:alert] = 'Поля заполнены неправильно'
+    current_user.categories.find(params[:id]).update(name: category_params[:name])
 
-      render :edit
-    end
+    redirect_to categories_path, notice: 'Категория обновлена!'
   end
 
   def destroy
@@ -52,14 +35,10 @@ class CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name, :user_id)
+    params.require(:category).permit(:name)
   end
 
   def set_category
     @category = Category.find(params[:id])
-  end
-
-  def id_of_user
-    return user_id = session[:user_id].to_s
   end
 end
