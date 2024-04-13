@@ -13,8 +13,9 @@ class EventsController < ApplicationController
   end
 
   def create
-    params.require(:event)[:user_id] = id_of_user
-    @event =  Event.create(event_params)
+    params.require(:event)[:user_id] = current_user.id
+    @event = Event.new(event_params)
+
     if @event.save
       redirect_to events_path, notice: 'Событие добавлено!'
     else
@@ -50,14 +51,10 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:name, :body, :event_date, :category_id, :user_id)
+    params.require(:event).permit(:name, :body, :event_date, :category, :user_id)
   end
 
   def set_event
     @event = Event.find(params[:id])
-  end
-
-  def id_of_user
-    return user_id = session[:user_id].to_s
   end
 end

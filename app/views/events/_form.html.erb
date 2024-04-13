@@ -9,8 +9,8 @@
   <p><%= form.label :event_date, 'Дата' %></p>
   <p><%= form.date_field :event_date %></p>
 
-  <p><%= form.label :category_id, 'Категория' %></p>
-  <p><%= form.select :category_id, Category.where(user_id: current_user).pluck(:name) %></p>
+  <p><%= form.label :category, 'Категория' %></p>
+  <p><%= form.select :category, User.find(current_user.id).categories.pluck(:name) %></p>
 
   <p><%= form.submit 'Сохранить' %></p>
 <% end %>
