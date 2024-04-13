@@ -11,7 +11,10 @@
     <% if params[:action] != 'show' %>
       <p><%= link_to "Подробнее", event %></p>
     <% end %>
-    <p><%= link_to "Редактировать", edit_event_path(event) %></p>
+
+    <% if event[:event_date] > Date.current %>
+      <p><%= link_to "Редактировать", edit_event_path(event) %></p>
+    <% end %>
     <%= button_to "Удалить", event_path(event), method: :delete %>
   </div>
 </div>
