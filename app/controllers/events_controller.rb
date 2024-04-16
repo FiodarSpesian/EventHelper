@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   def index
     user_id = session[:user_id]
     @user = User.find(user_id)
-    @events = @user.events.order event_date: :desc
+    @events = @user.events.order(event_date: :desc).page params[:page]
     # @q = user.events.ransack(params[:q])
     # @events = @q.result.order(:event_date).reverse
   end

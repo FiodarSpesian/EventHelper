@@ -2,11 +2,13 @@
 
 
   <div>
+    <%= paginate @events %>
     <% @events.each do |event| %>
       <div>
         <%= render event, user: @user %>
       </div>
     <% end %>
+    <%= paginate @events %>
     <hr>
     <%= link_to 'Добавить событие', new_user_event_path %>
   </div>

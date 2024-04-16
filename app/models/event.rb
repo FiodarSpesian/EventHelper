@@ -1,7 +1,9 @@
 class Event < ApplicationRecord
   belongs_to :user # пренадлежит User
   belongs_to :category
-  # paginates_per 5
+
+  paginates_per 5
+
   before_save
   validates :name, presence: true
   validates :event_date, presence: true
