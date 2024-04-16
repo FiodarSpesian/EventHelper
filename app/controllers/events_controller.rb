@@ -2,22 +2,25 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[show edit update destroy]
   def index
     user_id = session[:user_id]
-    @events = Event.where(user_id: user_id).order(:event_date).reverse
+    @user = User.find(user_id)
+    @events = @user.events.order event_date: :desc
+    # @q = user.events.ransack(params[:q])
+    # @events = @q.result.order(:event_date).reverse
   end
 
   def new
-    @event = Event.new
+    @user = current_user
+    @event = @user.events.build
   end
 
   def show
   end
 
   def create
-    params.require(:event)[:user_id] = current_user.id
-    @event = Event.new(event_params)
+    @event = current_user.events.build(event_params)
 
     if @event.save
-      redirect_to events_path, notice: 'Событие добавлено!'
+      redirect_to user_events_path, notice: 'Событие добавлено!'
     else
       flash.now[:alert] = 'Вы неправильно заполнили поля формы'
 
@@ -29,8 +32,11 @@ class EventsController < ApplicationController
   end
 
   def update
+    @event = current_user.events.find(params[:id])
+
     if @event.update(event_params)
-      redirect_to events_path, notice: 'Событие обновлено'
+
+      redirect_to user_events_path, notice: 'Событие обновлено'
     else
       flash.now[:alert] = 'Поля заполнены неправильно'
 
@@ -41,17 +47,13 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
 
-    redirect_to events_path
-  end
-
-  def search
-    # must be to find how to render field for find something
+    redirect_to user_events_path
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:name, :body, :event_date, :category, :user_id)
+    params.require(:event).permit(:name, :body, :event_date, :category_id, :user_id)
   end
 
   def set_event

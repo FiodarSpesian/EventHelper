@@ -9,12 +9,12 @@
   </div>
   <div>
     <% if params[:action] != 'show' %>
-      <p><%= link_to "Подробнее", event %></p>
+      <p><%= link_to "Подробнее", user_event_path(current_user, event) %></p>
     <% end %>
 
-    <% if event[:event_date] > Date.current %>
-      <p><%= link_to "Редактировать", edit_event_path(event) %></p>
+    <% if event[:event_date] >= Date.current %>
+      <p><%= link_to "Редактировать", edit_user_event_path(current_user, event) %></p>
     <% end %>
-    <%= button_to "Удалить", event_path(event), method: :delete %>
+    <%= link_to "Удалить", user_event_path(current_user, event), data: { turbo_method: :delete }, remote: true %>
   </div>
 </div>

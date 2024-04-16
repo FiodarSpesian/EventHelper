@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_and_belongs_to_many :categories
-  has_many :users
+  has_many :events
 
   after_save :create_default_categories
 

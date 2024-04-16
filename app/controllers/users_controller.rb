@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
     @user = User.find(session[:user_id])
+    @events = @user.events
   end
 
   def new

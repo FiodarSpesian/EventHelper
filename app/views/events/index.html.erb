@@ -1,10 +1,12 @@
 <h2 class="title-lg">События</h2>
-<div>
-  <% @events.each do |event| %>
-    <div>
-      <%= render event %>
-    </div>
-  <% end %>
-  <hr>
-  <%= link_to 'Добавить событие', new_event_path %>
-</div>
+
+
+  <div>
+    <% @events.each do |event| %>
+      <div>
+        <%= render event, user: @user %>
+      </div>
+    <% end %>
+    <hr>
+    <%= link_to 'Добавить событие', new_user_event_path %>
+  </div>
