@@ -1,11 +1,10 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[show edit update destroy]
+  before_action :set_event!, only: %i[show edit update destroy]
   def index
-    user_id = session[:user_id]
-    @user = User.find(user_id)
-    @events = @user.events.order(event_date: :desc).page params[:page]
-    # @q = user.events.ransack(params[:q])
-    # @events = @q.result.order(:event_date).reverse
+    # user_id = session[:user_id]
+    @user = current_user
+    @q = @user.events.ransack(params[:q])
+    @events = @q.result.order(event_date: :desc).page params[:page]
   end
 
   def new
@@ -45,9 +44,9 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event.destroy
+    @category.destroy
 
-    redirect_to user_events_path
+    redirect_to user_events_path, notice: 'Событие удалено!'
   end
 
   private
@@ -56,7 +55,7 @@ class EventsController < ApplicationController
     params.require(:event).permit(:name, :body, :event_date, :category_id, :user_id)
   end
 
-  def set_event
+  def set_event!
     @event = Event.find(params[:id])
   end
 end

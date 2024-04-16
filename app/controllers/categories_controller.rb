@@ -1,35 +1,46 @@
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i[show edit update destroy]
+  before_action :set_category!, only: %i[ edit update destroy]
 
   def index
     @categories = current_user.categories
   end
 
   def new
-    @category = Category.new
-  end
-
-  def show
+    @category = current_user.categories.build
   end
 
   def create
-    current_user.categories.find_or_create_by(name: category_params[:name])
+    @category = current_user.categories.build(category_params)
+    if current_user.categories.find_by(name: category_params[:name])
+      flash.now[:alert] = 'Такая категория уже существует'
 
-    redirect_to categories_path, notice: 'Категория добавлена!'
+      render :new
+    else
+      current_user.categories.append(@category)
+
+      redirect_to user_categories_path, notice: 'Категория добавлена!'
+    end
   end
 
   def edit
   end
 
   def update
-    current_user.categories.find(params[:id]).update(name: category_params[:name])
+    if current_user.categories.find_by(name: category_params[:name])
+      flash.now[:alert] = 'Такая категория уже существует'
 
-    redirect_to categories_path, notice: 'Категория обновлена!'
+      render :edit
+    else
+      @category.update(category_params)
+
+      redirect_to user_categories_path, notice: 'Категория обновлена!'
+    end
   end
 
   def destroy
     @category.destroy
-    redirect_to categories_path, notice: 'Категрия удалена!'
+
+    redirect_to user_categories_path, notice: 'Категрия удалена!'
   end
 
   private
@@ -38,7 +49,7 @@ class CategoriesController < ApplicationController
     params.require(:category).permit(:name)
   end
 
-  def set_category
+  def set_category!
     @category = Category.find(params[:id])
   end
 end

@@ -2,9 +2,9 @@
 <div>
   <% @categories.each do |category| %>
     <div>
-      <%= render category %>
+      <%= render category, user: @user %>
     </div>
   <% end %>
   <hr>
-  <%= link_to 'Добавить категортю', new_category_path %>
+  <%= link_to 'Добавить категортю', new_user_category_path %>
 </div>
