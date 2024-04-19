@@ -11,14 +11,20 @@ class CategoriesController < ApplicationController
 
   def create
     @category = current_user.categories.build(category_params)
-    if current_user.categories.find_by(name: category_params[:name])
+    unless current_user.categories.find_by(name: category_params[:name])
+      if @category.name.present?
+        current_user.categories.append(@category)
+
+        redirect_to user_categories_path, notice: 'Категория добавлена!'
+      else
+        flash.now[:alert] = 'Это поле не может быть пустым'
+
+        render :new
+      end
+    else
       flash.now[:alert] = 'Такая категория уже существует'
 
       render :new
-    else
-      current_user.categories.append(@category)
-
-      redirect_to user_categories_path, notice: 'Категория добавлена!'
     end
   end
 
@@ -26,14 +32,14 @@ class CategoriesController < ApplicationController
   end
 
   def update
-    if current_user.categories.find_by(name: category_params[:name])
-      flash.now[:alert] = 'Такая категория уже существует'
-
-      render :edit
-    else
+    unless current_user.categories.find_by(name: category_params[:name])
       @category.update(category_params)
 
       redirect_to user_categories_path, notice: 'Категория обновлена!'
+    else
+      flash.now[:alert] = 'Такая категория уже существует'
+
+      render :edit
     end
   end
 

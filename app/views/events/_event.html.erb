@@ -8,7 +8,7 @@
     <p><%= event.event_date.strftime("%d.%m.%Y") %></p>
   </div>
   <div>
-    <% if params[:action] != 'show' %>
+    <% unless params[:action] == 'show' %>
       <p><%= link_to "Подробнее", user_event_path(current_user, event) %></p>
     <% end %>
 
@@ -16,6 +16,6 @@
       <p><%= link_to "Редактировать", edit_user_event_path(current_user, event) %></p>
     <% end %>
     <%= link_to "Удалить", user_event_path(current_user, event),
-      data:{ turbo_method: :delete, confirm: 'Вы уверены что хотите удалить событие?' } %>
+      data:{ method: :delete, confirm: 'Вы уверены что хотите удалить событие?' } %>
   </div>
 </div>

@@ -2,7 +2,7 @@
   <div>
     <p><%= category.name %> </p>
     <p><%= link_to "Редактировать", edit_user_category_path(current_user, category) %>
-    <%= button_to "Удалить", user_category_path(current_user, category),
-      data: {method: :delete, confirm: 'Вы уверены что хотите удалить категорию?' } %></p>
+    <%= link_to "Удалить", user_category_path(current_user, category),
+      data: {method: :delete, confirm: 'При удалении категории удалятся и сязанные с ней события. Удалить?' } %></p>
   </div>
 </div>

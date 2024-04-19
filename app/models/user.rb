@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_and_belongs_to_many :categories
-  has_many :events
+  has_and_belongs_to_many :categories, dependent: :destroy
+  has_many :events, dependent: :destroy
 
   after_save :create_default_categories
 

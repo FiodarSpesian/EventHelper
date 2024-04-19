@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event!, only: %i[show edit update destroy]
   def index
-    # user_id = session[:user_id]
     @user = current_user
     @q = @user.events.ransack(params[:q])
     @events = @q.result.order(event_date: :desc).page params[:page]
@@ -13,6 +12,7 @@ class EventsController < ApplicationController
   end
 
   def show
+      @weather_forecast = WeatherApi::Handler.call({ date: @event.event_date.to_s })
   end
 
   def create
@@ -31,8 +31,6 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event = current_user.events.find(params[:id])
-
     if @event.update(event_params)
 
       redirect_to user_events_path, notice: 'Событие обновлено'
@@ -44,7 +42,7 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @category.destroy
+    @event.destroy
 
     redirect_to user_events_path, notice: 'Событие удалено!'
   end

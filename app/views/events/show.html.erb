@@ -1,3 +1,10 @@
 <h2>Подробнее</h2>
 <span class="text-sm"><%= link_to "Вернуться", :back, class: 'text-red' %></span>
 <%= render 'event', event: @event %>
+
+<% if @weather_forecast %>
+    Min temp: <%= @weather_forecast[:min_temp] %>
+    Max temp: <%= @weather_forecast[:max_temp] %> 
+<% else %>
+    <p>No data provided for date: <%= @event.event_date.strftime("%d.%m.%Y") %></p>
+<% end %> 
