@@ -1,0 +1,17 @@
+<div>
+  <div>
+    <p><%= event.name %></p>
+    <% if params[:action] == 'show' %>
+      <p><%= event.body %></p>
+    <% end %>
+    <p><%= event.category_id %></p>
+    <p><%= event.event_date.strftime("%d.%m.%Y") %></p>
+  </div>
+  <div>
+    <% if params[:action] != 'show' %>
+      <p><%= link_to "Подробнее", event %></p>
+    <% end %>
+    <p><%= link_to "Редактировать", edit_event_path(event) %></p>
+    <%= button_to "Удалить", event_path(event), method: :delete %>
+  </div>
+</div>

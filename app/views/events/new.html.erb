@@ -1,0 +1,14 @@
+<div>
+  <h2>Новое событие</h2>
+  <% if @event.errors.any?%>
+    <div>
+      <% @event.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= render 'form', event: @event %>
+  </div>
+</div>

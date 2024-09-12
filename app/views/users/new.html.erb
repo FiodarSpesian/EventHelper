@@ -1,0 +1,29 @@
+<div>
+  <h2>Управляйте своими планами легко</h2>
+
+  <% if @user.errors.any?%>
+    <div>
+      <% @user.errors.full_messages.each do |message| %>
+        <p class="mb-sm text-red"><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form_with model: @user, data: {turbo: false} do |form| %>
+    <p><%= form.label :name, 'Ваше имя' %></p>
+    <p><%= form.text_field :name, class: 'form-text-field' %></p>
+
+    <p><%= form.label :surname, 'Ваша фамилия' %></p>
+    <p><%= form.text_field :surname, class: 'form-text-field' %></p>
+
+    <p><%= form.label :email %></p>
+    <p><%= form.text_field :email, class: 'form-text-field' %></p>
+
+    <p><%= form.label :password %></p>
+    <p><%= form.password_field :password, class: 'form-text-field' %></p>
+
+    <p class="mt-lg"><%= form.submit 'Зарегестрироваться', class: 'button button-main' %></p>
+    <% end %>
+  </div>
+</div>
