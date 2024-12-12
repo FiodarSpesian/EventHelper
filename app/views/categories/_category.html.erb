@@ -1,0 +1,8 @@
+<div>
+  <div>
+    <p><%= category.name %> </p>
+    <p><%= link_to "Редактировать", edit_user_category_path(current_user, category) %>
+    <%= button_to "Удалить", user_category_path(current_user, category),
+      data: {method: :delete, confirm: 'Вы уверены что хотите удалить категорию?' } %></p>
+  </div>
+</div>

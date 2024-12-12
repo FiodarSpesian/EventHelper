@@ -1,0 +1,16 @@
+<%= form_with model: [current_user, event], data: {turbo: false} do |form| %>
+
+  <p><%= form.label :name, 'Название' %></p>
+  <p><%= form.text_field :name %></p>
+
+  <p><%= form.label :body, 'Описание' %></p>
+  <p><%= form.text_area :body, rows: 5 %></p>
+
+  <p><%= form.label :event_date, 'Дата' %></p>
+  <p><%= form.date_field :event_date %></p>
+
+  <p><%= form.label :category, 'Категория' %></p>
+  <p><%= form.collection_select(:category_id, current_user.categories.order(:name), :id, :name) %></p>
+
+  <p><%= form.submit 'Сохранить' %></p>
+<% end %>

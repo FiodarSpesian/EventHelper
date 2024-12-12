@@ -1,0 +1,10 @@
+<h2 class="title-lg">Категории</h2>
+<div>
+  <% @categories.each do |category| %>
+    <div>
+      <%= render category, user: @user %>
+    </div>
+  <% end %>
+  <hr>
+  <%= link_to 'Добавить категортю', new_user_category_path %>
+</div>

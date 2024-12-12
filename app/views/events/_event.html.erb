@@ -1,0 +1,21 @@
+<div>
+  <div>
+    <p><%= event.name %></p>
+    <% if params[:action] == 'show' %>
+      <p><%= event.body %></p>
+    <% end %>
+    <p><%= current_user.categories.find(event.category_id)[:name] %></p>
+    <p><%= event.event_date.strftime("%d.%m.%Y") %></p>
+  </div>
+  <div>
+    <% if params[:action] != 'show' %>
+      <p><%= link_to "Подробнее", user_event_path(current_user, event) %></p>
+    <% end %>
+
+    <% if event[:event_date] >= Date.current %>
+      <p><%= link_to "Редактировать", edit_user_event_path(current_user, event) %></p>
+    <% end %>
+    <%= link_to "Удалить", user_event_path(current_user, event),
+      data:{ turbo_method: :delete, confirm: 'Вы уверены что хотите удалить событие?' } %>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<h2 class="title-lg">События</h2>
+  <div>
+    <%= paginate @events %>
+    <hr>
+    <%= search_form_for [@user, @q] do |f| %>
+      <div>
+      <%= f.text_field :name_cont, placeholder: 'Название события' %>
+      <%= f.submit "Найти" %>
+      <div>
+    <% end %>
+
+    <% @events.each do |event| %>
+      <div>
+        <%= render event, user: @user %>
+      </div>
+    <% end %>
+    <hr>
+    <%= paginate @events %>
+
+    <hr>
+    <%= link_to 'Добавить событие', new_user_event_path %>
+  </div>

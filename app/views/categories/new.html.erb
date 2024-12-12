@@ -1,0 +1,14 @@
+<div>
+  <h2>Новая категория</h2>
+  <% if @category.errors.any?%>
+    <div>
+      <% @category.errors.full_messages.each do |message| %>
+        <p><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= render "form", category: @category %>
+  </div>
+</div>

@@ -11,6 +11,38 @@
   </head>
 
   <body>
-    <%= yield %>
-  </body>
+    <div class="wrapper">
+      <div class="navbar">
+
+
+        <div class="">
+          <% if current_user.present? %>
+            <div>
+            <p><%= link_to 'Helper' %></p>
+            <p><%= link_to 'Профиль', users_path %></p>
+            <p><%= link_to 'События', user_events_path(current_user) %></p>
+            <p><%= link_to 'Категории', user_categories_path(current_user) %></p>
+            </div>
+
+            <div>
+            <%= content_tag 'span', "#{current_user.email[0..5]}...", class: 'mr-sm ' %>
+            <%= button_to 'Выйти', session_path, method: :delete %>
+            </div>
+          <% else %>
+            <%= link_to 'Регистрация', new_user_path, class: 'button button-yellow mr-sm' %>
+            <%= link_to 'Вход', new_session_path, class: 'button button-yellow ' %>
+          <% end %>
+        </div>
+
+      </div>
+      <hr>
+      <% if flash[:notice].present? %>
+        <p><%= flash[:notice] %></p>
+      <% elsif flash[:alert].present? %>
+        <p><%= flash[:alert] %></p>
+      <% end %>
+      <hr>
+      <%= yield %>
+    </div>
+    </body>
 </html>
